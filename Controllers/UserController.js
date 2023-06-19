@@ -25,7 +25,6 @@ class UserController {
         try {
             const result = await User.findAll({
                 attributes: ["id", "nombre", "apellido", "email", "roleId"],
-                // include:Role
                 include: [
                     {
                         model: Role,
@@ -43,7 +42,6 @@ class UserController {
                 .status(200)
                 .send({ success: true, message: "Usuarios encontrados", result });
         } catch (error) {
-            //   res.status(400).send({ success: false, message: error.message });
             next(error);
         }
     };

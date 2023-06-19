@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import 'dotenv/config';
+
 
 const connection = new Sequelize('ortcinema', 'root', '', {
   host: 'localhost',
