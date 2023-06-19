@@ -1,5 +1,6 @@
 import express from "express";
 const app = express();
+import indexRoutes from "../Backend/routes/indexRoutes.js"
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
