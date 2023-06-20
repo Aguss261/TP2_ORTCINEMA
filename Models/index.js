@@ -5,6 +5,7 @@ import Pelicula from "../Models/Pelicula.js"
 import Funcion from "./Funcion.js";
 import Sala from "../Models/Sala.js"
 import Reserva from "./Reserva.js";
+import Producto from "./Producto.js"
 
 Role.hasMany(User, {
   foreignKey: "roleId",
@@ -57,4 +58,4 @@ Funcion.hasMany(Reserva, {
 
 
 
-export { User, Role, Genero, Pelicula };
+export { User, Role, Genero, Pelicula, Sala, Reserva, Funcion, Producto };
