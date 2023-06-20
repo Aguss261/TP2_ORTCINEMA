@@ -1,6 +1,7 @@
 import { Router } from "express";
 import userRoutes from "../routes/userRoutes.js";
 import peliculasRoutes from "../routes/peliculaRoutes.js"
+import generoRoutes from "./generoRoutes.js";
 
 const indexRoutes = Router();
 
