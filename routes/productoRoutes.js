@@ -1,15 +1,15 @@
 import { Router } from "express";
-const salaRoutes = Router();
+const productoRoutes = Router();
 import ProductoController from "../Controllers/ProductoController.js";
 
 const ProductoController = new ProductoController();
 
-salaRoutes.get("/", ProductoController.getAllProductos);
-salaRoutes.get("/:id", ProductoController.getProductoById);
-salaRoutes.post("/", ProductoController.createProducto);
-salaRoutes.put("/:id", ProductoController.putProductoById);
-salaRoutes.delete("/:id", ProductoController.deleteProductoById);
-salaRoutes.put("/:tamaño", ProductoController.getProductosByTamanio);
-salaRoutes.delete("/:categoria", ProductoController.getProductosByCategoria);
+productoRoutes.get("/", ProductoController.getAllProductos);
+productoRoutes.get("/:id", ProductoController.getProductoById);
+productoRoutes.post("/", ProductoController.createProducto);
+productoRoutes.put("/:id", ProductoController.putProductoById);
+productoRoutes.delete("/:id", ProductoController.deleteProductoById);
+productoRoutes.put("/:tamaño", ProductoController.getProductosByTamanio);
+productoRoutes.delete("/:categoria", ProductoController.getProductosByCategoria);
 
-export default salaRoutes;
+export default productoRoutes;
