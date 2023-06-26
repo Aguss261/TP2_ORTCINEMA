@@ -9,7 +9,7 @@ salaRoutes.get("/:id", ProductoController.getProductoById);
 salaRoutes.post("/", ProductoController.createProducto);
 salaRoutes.put("/:id", ProductoController.putProductoById);
 salaRoutes.delete("/:id", ProductoController.deleteProductoById);
-salaRoutes.put("/:tamanio", ProductoController.getProductosByTamanio);
-salaRoutes.delete("/:cateogira", ProductoController.getProductosByCategoria);
+salaRoutes.put("/:tamaño", ProductoController.getProductosByTamanio);
+salaRoutes.delete("/:categoria", ProductoController.getProductosByCategoria);
 
 export default salaRoutes;
