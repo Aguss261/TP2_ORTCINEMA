@@ -12,4 +12,6 @@ peliculaRoutes.post("/", peliculaController.createPelicula);
 peliculaRoutes.put("/:id", peliculaController.putPeliculaById);
 peliculaRoutes.delete("/:id", peliculaController.deletePeliculaById);
 
+
+
 export default peliculaRoutes;

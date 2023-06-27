@@ -5,9 +5,8 @@ class SalaController {
 
     createSala = async (req, res, next) => {
         try {
-            const { funciones, capacidadButacas } = req.body;
+            const { capacidadButacas } = req.body;
             const result = await Sala.create({
-                funciones,
                 capacidadButacas,
             });
             res.status(200).send({ success: true, message: "Sala creada con éxito" });
@@ -20,7 +19,7 @@ class SalaController {
     getAllSalas = async (req, res, next) => {
         try {
             const result = await Sala.findAll({
-                attributes: ["id", "funciones", "capacidadButacas"],
+                attributes: ["id", "capacidadButacas"],
             });
             if (result.length === 0) {
                 const error = new Error("No hay salas");
@@ -42,7 +41,7 @@ class SalaController {
                 where: {
                     id,
                 },
-                attributes: ["id", "funciones", "capacidadButacas"],
+                attributes: ["id", "capacidadButacas"],
             });
             if (!result) throw new Error("No se encontró la sala");
             res.status(200).send({ success: true, message: "Sala encontrada", result });

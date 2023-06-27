@@ -5,15 +5,10 @@ class Sala extends Model { }
 
 Sala.init(
     {
-        funciones: {
-            type: DataTypes.JSON,
-            allowNull: false,
-            defaultValue: [],
-        },
         capacidadButacas: {
             type: DataTypes.INTEGER,
             allowNull: false,
-        },
+        }
     },
     {
         sequelize: connection,
