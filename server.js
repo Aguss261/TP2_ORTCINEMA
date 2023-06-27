@@ -19,7 +19,7 @@ await connection
   .sync({ force: false })
   .then(() => {
     app.listen(3060, () => {
-      console.log("server ok http://localhost:8080");
+      console.log("server ok http://localhost:3060");
     });
   })
-  .then(roleSeed);
+  .then(roleSeed)

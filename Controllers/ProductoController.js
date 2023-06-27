@@ -5,8 +5,8 @@ class ProductoController {
   }
   createProducto = async (req, res, next) => {
     try {
-      const { nombre, foto, tamaño, categoria, precio, descripcion } = req.body;
-      const result = await Producto.create({nombre,foto,tamaño,categoria,precio,descripcion,});
+      const { nombre, foto, tamanio, categoria, precio, descripcion } = req.body;
+      const result = await Producto.create({nombre,foto,tamanio,categoria,precio,descripcion,});
       res.status(200).send({ success: true, message: "Producto creado con éxito" });
       if (!result) throw new Error("No se pudo crear el producto");
     } catch (error) {
@@ -17,7 +17,7 @@ class ProductoController {
   getAllProductos = async (req, res, next) => {
     try {
       const result = await Producto.findAll({
-        attributes: ["id","nombre","foto","tamaño","categoria","precio","descripcion",
+        attributes: ["id","nombre","foto","tamanio","categoria","precio","descripcion",
         ],
       });
       if (result.length === 0) {
@@ -38,7 +38,7 @@ class ProductoController {
         where: {
           id,
         },
-        attributes: ["id","nombre","foto","tamaño","categoria","precio","descripcion",],
+        attributes: ["id","nombre","foto","tamanio","categoria","precio","descripcion",],
       });
       if (!result) throw new Error("No se encontro el producto");
       res.status(200).send({ success: true, message: "Producto encontrado", result });
@@ -76,15 +76,13 @@ class ProductoController {
   };
   
 
-}
-
 getProductosByTamanio = async (req, res, next) => {
     try {
       const result = await Producto.findAll({
         where: {
-          tamaño
-        },
-        attributes: ["id","nombre","foto","tamaño","categoria","precio","descripcion",],
+          tamanio
+      },      
+        attributes: ["id","nombre","foto","tamanio","categoria","precio","descripcion",],
       });
       if (result.length === 0) {
         const error = new Error(`No hay productos de tamaño ${tamaño}`);
@@ -115,7 +113,7 @@ getProductosByTamanio = async (req, res, next) => {
       next(error);
     }
   };
-
+}
 
 
 export default ProductoController;

@@ -13,7 +13,7 @@ Producto.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        tamaño: {
+        tamanio: {
             type: DataTypes.STRING,
             allowNull: false,
         },

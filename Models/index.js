@@ -16,10 +16,10 @@ User.belongsTo(Role, {
 });
 
 Pelicula.belongsTo(Genero, {
-  foreignKey: 'idGénero'});
+  foreignKey: 'idGenero'});
 
 Genero.hasMany(Pelicula, {
-  foreignKey: 'idGénero' });
+  foreignKey: 'idGenero' });
 
   Funcion.belongsTo(Sala, {
     foreignKey: 'salaId',

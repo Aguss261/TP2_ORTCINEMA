@@ -34,7 +34,7 @@ class PeliculaController {
                 attributes: ["id", "nombre", "foto", "generoId", "descripcion", "duracion", "precio"]
             });
             if (result.length === 0) {
-                const error = new Error("No hay usuarios")
+                const error = new Error("No hay peliculas")
                 error.status = 400;
                 throw error
             }
