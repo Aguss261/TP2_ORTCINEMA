@@ -56,7 +56,7 @@ class GeneroController {
             if (updatedGenero[0] === 0) {
                 throw new Error("No se pudo actualizar el genero");
             }
-            res.status(200).send({ success: true, message: "" });
+            res.status(200).send({ success: true, message: "Genero modificado con exito" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }
@@ -68,7 +68,7 @@ class GeneroController {
             if (deletedGenero === 0) {
                 throw new Error("No se pudo eliminar el genero");
             }
-            res.status(200).send({ success: true, message: "" });
+            res.status(200).send({ success: true, message: "Genero eliminado con exito" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }

@@ -1,32 +1,37 @@
-import { Pelicula } from "../Models/index.js";
+import { Pelicula, Genero } from "../Models/index.js";
+import { Op } from "sequelize";
+
 
 class PeliculaController {
     constructor() { }
-    createPelicula = async (req, res, next) => {
-        try {
-          const { nombre, foto, generoId, descripcion, precio } = req.body;
-      
-          const genero = await Genero.findByPk(generoId);
-          if (!genero) {
-            throw new Error("El género no existe en la base de datos");
-          }
-          const result = await Pelicula.create({
-            nombre,
-            foto,
-            generoId,
-            descripcion,
-            precio,
-          });
-      
-          if (!result) {
-            throw new Error("No se pudo crear la película");
-          }
-      
-          res.status(200).send({ success: true, message: "Película creada con éxito" });
-        } catch (error) {
-          res.status(400).send({ success: false, message: error.message });
-        }
-      };
+    
+createPelicula = async (req, res, next) => {
+    try {
+      const { nombre, foto, generoId, descripcion, duracion, precio} = req.body;
+  
+      const genero = await Genero.findByPk(generoId);
+      if (!genero) {
+        throw new Error("El género no existe en la base de datos");
+      }
+      const result = await Pelicula.create({
+        nombre,
+        foto,
+        generoId,
+        descripcion,
+        duracion,
+        precio
+        
+      });
+  
+      if (!result) {
+        throw new Error("No se pudo crear la película");
+      }
+  
+      res.status(200).send({ success: true, message: "Película creada con éxito" });
+    } catch (error) {
+      res.status(400).send({ success: false, message: error.message });
+    }
+  };
       
     getAllPeliculas = async (req, res, next) => {
         try {
@@ -105,7 +110,7 @@ class PeliculaController {
             if (updatedPelicula[0] === 0) {
                 throw new Error("No se pudo actualizar la película");
             }
-            res.status(200).send({ success: true, message: "" });
+            res.status(200).send({ success: true, message: "Pelicula actualizada con exito" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }
