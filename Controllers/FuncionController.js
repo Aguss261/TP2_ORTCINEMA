@@ -32,21 +32,20 @@ class FuncionController {
     };
     createFuncion = async (req, res, next) => {
         try {
-            const { fecha, butacasDisponibles, duracion, salaId, peliculaId } = req.body
+            const { fecha, duracion, salaId, peliculaId } = req.body
             const sala = await Sala.findByPk(salaId);
             if (!sala) {
                 throw new Error("La sala no existe.")
             }
 
             const pelicula = await Pelicula.findByPk(peliculaId);
-            console.log("pelicula", pelicula)
             if (!pelicula) {
                 throw new Error("La película no existe en la base de datos.")
             }
 
             const result = await Funcion.create({
                 fecha,
-                butacasDisponibles,
+                butacasDisponibles: sala.capacidadButacas,
                 duracion,
                 salaId,
                 peliculaId
