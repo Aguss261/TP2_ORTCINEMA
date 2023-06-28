@@ -14,7 +14,7 @@ Pelicula.init(
             allowNull: false,
         },
         generoId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         descripcion: {
@@ -26,7 +26,7 @@ Pelicula.init(
             allowNull: false,
         },
         precio: {
-            type: DataTypes.FLOAT,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
     },

@@ -2,31 +2,35 @@ import { Pelicula } from "../Models/index.js";
 
 class PeliculaController {
     constructor() { }
-    createPelicula = async (req, res, next) => {
-        try {
-          const { nombre, foto, generoId, descripcion, precio } = req.body;
-      
-          const genero = await Genero.findByPk(generoId);
-          if (!genero) {
-            throw new Error("El género no existe en la base de datos");
-          }
-          const result = await Pelicula.create({
-            nombre,
-            foto,
-            generoId,
-            descripcion,
-            precio,
-          });
-      
-          if (!result) {
-            throw new Error("No se pudo crear la película");
-          }
-      
-          res.status(200).send({ success: true, message: "Película creada con éxito" });
-        } catch (error) {
-          res.status(400).send({ success: false, message: error.message });
-        }
-      };
+    
+createPelicula = async (req, res, next) => {
+    try {
+      const { nombre, foto, generoId, descripcion, duracion, precio} = req.body;
+  
+      console.log(nombre, foto, generoId, descripcion, precio, duracion )
+    //   const genero = await Genero.findByPk(generoId);
+    //   if (!genero) {
+    //     throw new Error("El género no existe en la base de datos");
+    //   }
+      const result = await Pelicula.create({
+        nombre,
+        foto,
+        generoId,
+        descripcion,
+        duracion,
+        precio
+        
+      });
+  
+      if (!result) {
+        throw new Error("No se pudo crear la película");
+      }
+  
+      res.status(200).send({ success: true, message: "Película creada con éxito" });
+    } catch (error) {
+      res.status(400).send({ success: false, message: error.message });
+    }
+  };
       
     getAllPeliculas = async (req, res, next) => {
         try {

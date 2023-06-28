@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "express"
 const reservaRoutes = Router();
 import ReservaController from "../Controllers/ReservaController.js";
 
@@ -11,4 +11,4 @@ reservaRoutes.put("/:id", reservaController.putReservaById);
 reservaRoutes.delete("/:id", reservaController.deleteReservaById);
 reservaRoutes.get("/user/:userId", reservaController.getReservasByUserId);
 
-export default reservaRoutes;
+export default reservaRoutes
