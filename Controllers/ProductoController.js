@@ -50,17 +50,18 @@ class ProductoController {
   putProductoById = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const updatedProducto = await Producto.update(req.body, {
+      const [updatedCount] = await Producto.update(req.body, {
         where: { id },
       });
-      if (updatedProducto[0] === 0) {
-        throw new Error("No se pudo actualizar el producto");
+      if (updatedCount === 0) {
+        throw new Error("No se encontró el producto o no se pudo actualizar");
       }
-      res.status(200).send({ success: true, message: "" });
+      res.status(200).send({ success: true, message: "Producto actualizado exitosamente" });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
   };
+  
     
   deleteProductoById = async (req, res, next) => {
     try {
@@ -76,32 +77,35 @@ class ProductoController {
   };
   
 
-getProductosByTamanio = async (req, res, next) => {
+  getProductosByTamanio = async (req, res, next) => {
     try {
+      const { tamanio } = req.params;
       const result = await Producto.findAll({
         where: {
-          tamanio
-      },      
-        attributes: ["id","nombre","foto","tamanio","categoria","precio","descripcion",],
+          tamanio: tamanio
+        },
+        attributes: ["id", "nombre", "foto", "tamanio", "categoria", "precio", "descripcion"],
       });
       if (result.length === 0) {
-        const error = new Error(`No hay productos de tamaño ${tamaño}`);
+        const error = new Error(`No hay productos de tamaño ${tamanio}`);
         error.status = 400;
         throw error;
       }
-      res.status(200).send({ success: true, message: `Productos ${tamaño} encontrados`, result });
+      res.status(200).send({ success: true, message: `Productos ${tamanio} encontrados`, result });
     } catch (error) {
       next(error);
     }
   };
+  
 
   getProductosByCategoria = async (req, res, next) => {
     try {
+      const { categoria } = req.params;
       const result = await Producto.findAll({
         where: {
           categoria
         },
-        attributes: ["id","nombre","foto","tamaño","categoria","precio","descripcion",],
+        attributes: ["id","nombre","foto","tamanio","categoria","precio","descripcion",],
       });
       if (result.length === 0) {
         const error = new Error(`No hay productos de categoria ${categoria}`);

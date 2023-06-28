@@ -64,16 +64,39 @@ class UserController {
     };
     putUserById = async (req, res, next) => {
         try {
-            const result = await User;
-            res.status(200).send({ success: true, message: "" });
+            const { id } = req.params;
+            const { nombre, apellido, email } = req.body;
+
+            const [updatedCount] = await User.update(
+                { nombre, apellido, email },
+                { where: { id } }
+            );
+
+            if (updatedCount === 0) {
+                throw new Error("No se pudo actualizar el usuario");
+            }
+
+            res.status(200).send({ success: true, message: "Usuario actualizado exitosamente" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }
     };
+
+
     deleteUserById = async (req, res, next) => {
         try {
-            const result = await User;
-            res.status(200).send({ success: true, message: "" });
+            const { id } = req.params;
+
+            const user = await User.findOne({ where: { id } });
+
+            if (!user) {
+                throw new Error("No se encontró al usuario");
+            }
+
+            // Eliminar el usuario de la base de datos
+            await user.destroy();
+
+            res.status(200).send({ success: true, message: "Usuario eliminado exitosamente" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }

@@ -59,7 +59,7 @@ class SalaController {
             if (updatedSala[0] === 0) {
                 throw new Error("No se pudo actualizar la sala");
             }
-            res.status(200).send({ success: true, message: "" });
+            res.status(200).send({ success: true, message: "Sala Actualizada" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }
@@ -72,7 +72,7 @@ class SalaController {
             if (deletedSala === 0) {
                 throw new Error("No se pudo eliminar la sala");
             }
-            res.status(200).send({ success: true, message: "" });
+            res.status(200).send({ success: true, message: "Sala eliminada con exito" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }

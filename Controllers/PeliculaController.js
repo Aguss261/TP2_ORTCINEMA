@@ -1,4 +1,6 @@
-import { Pelicula } from "../Models/index.js";
+import { Pelicula, Genero } from "../Models/index.js";
+import { Op } from "sequelize";
+
 
 class PeliculaController {
     constructor() { }
@@ -7,11 +9,10 @@ createPelicula = async (req, res, next) => {
     try {
       const { nombre, foto, generoId, descripcion, duracion, precio} = req.body;
   
-      console.log(nombre, foto, generoId, descripcion, precio, duracion )
-    //   const genero = await Genero.findByPk(generoId);
-    //   if (!genero) {
-    //     throw new Error("El género no existe en la base de datos");
-    //   }
+      const genero = await Genero.findByPk(generoId);
+      if (!genero) {
+        throw new Error("El género no existe en la base de datos");
+      }
       const result = await Pelicula.create({
         nombre,
         foto,
@@ -109,7 +110,7 @@ createPelicula = async (req, res, next) => {
             if (updatedPelicula[0] === 0) {
                 throw new Error("No se pudo actualizar la película");
             }
-            res.status(200).send({ success: true, message: "" });
+            res.status(200).send({ success: true, message: "Pelicula actualizada con exito" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }
