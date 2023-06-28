@@ -1,4 +1,5 @@
-import { Funcion, Pelicula } from "../Models/index.js";
+import { Funcion, Pelicula, Sala } from "../Models/index.js";
+import { Op } from "sequelize";
 
 class FuncionController {
     constructor() { }
@@ -32,9 +33,7 @@ class FuncionController {
     createFuncion = async (req, res, next) => {
         try {
             const { fecha, butacasDisponibles, duracion, salaId, peliculaId } = req.body
-    
             const sala = await Sala.findByPk(salaId);
-            console.log("sala", sala)
             if (!sala) {
                 throw new Error("La sala no existe.")
             }
@@ -43,25 +42,88 @@ class FuncionController {
             console.log("pelicula", pelicula)
             if (!pelicula) {
                 throw new Error("La película no existe en la base de datos.")
-            }               
-    
+            }
+
             const result = await Funcion.create({
-                fecha, 
+                fecha,
                 butacasDisponibles,
-                duracion, 
-                salaId, 
+                duracion,
+                salaId,
                 peliculaId
             })
-    
+
             if (!result) {
                 throw new Error("No se pudo crear la función")
             }
-    
+
             res.status(200).send({ success: true, message: "Función creada con éxito" });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }
     };
+    getFuncionById = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const result = await Funcion.findOne({
+                where: {
+                    id,
+                },
+                attributes: ["fecha", "butacasDisponibles", "duracion", "salaId", "peliculaId"],
+            });
+            if (!result) throw new Error("No se pudo encontrar la funcion");
+            res.status(200).send({ success: true, message: "Funcion encontrada", result });
+        } catch (error) {
+            res.status(400).send({ success: false, message: error.message });
+        }
+    };
+    getFuncionByFecha = async (req, res, next) => {
+        try {
+            const { fecha } = req.params;
+            const result = await Funcion.findAll({
+                where: {
+                    fecha:  {
+                        [Op.like]: `%${fecha}%`,
+                    },
+                },
+                attributes: ["fecha", "butacasDisponibles", "duracion", "salaId", "peliculaId"],
+            });
+            if (result.length === 0) throw new Error("No se pudo encontrar la funcion");
+            res.status(200).send({ success: true, message: "Funcion encontrada", result });
+        } catch (error) {
+            res.status(400).send({ success: false, message: error.message });
+        }
+    };
+    getFuncionByPeliculaId = async (req, res, next) => {
+        try {
+            const { peliculaId } = req.params;
+            const result = await Funcion.findAll({
+                where: {
+                    peliculaId,
+                },
+                attributes: ["fecha", "butacasDisponibles", "duracion", "salaId", "peliculaId"],
+            });
+            if (result.length === 0) throw new Error("No se encontraron funciones");
+            res.status(200).send({ success: true, message: "Funcion encontradas", result });
+        } catch (error) {
+            res.status(400).send({ success: false, message: error.message });
+        }
+    };
+    updateButacasDisponibles = async (req, res, next) => {
+        try {
+          const { id } = req.params;
+          const { butacasDisponibles } = req.body;
+
+          const funcion = await Funcion.findByPk(id);
+          if (!funcion) {
+            throw new Error("No se pudo encontrar la funcion");
+          }
+          funcion.butacasDisponibles = butacasDisponibles;
+          const result = await funcion.save();
+          res.status(200).send({ success: true, message: "butacasDisponibles actualizado con éxito", result });
+        } catch (error) {
+          res.status(400).send({ success: false, message: error.message });
+        }
+      };
 };
 
 export default FuncionController
